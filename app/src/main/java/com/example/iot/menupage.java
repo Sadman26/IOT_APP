@@ -6,7 +6,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.example.iot.databinding.ActivityMenupageBinding;
 import com.google.firebase.database.FirebaseDatabase;
 public class menupage extends AppCompatActivity {
@@ -48,15 +47,17 @@ public class menupage extends AppCompatActivity {
         }
         else if(chips.isChecked()){
             option = "Chips";
-            //disable other checkboxes
             kitkat.setEnabled(false);
             juice.setEnabled(false);
         }
         else if(juice.isChecked()){
             option = "Juice";
-            //disable other checkboxes
             kitkat.setEnabled(false);
             chips.setEnabled(false);
+        }
+        if(!kitkat.isChecked() && !chips.isChecked() && !juice.isChecked()){
+            Toast.makeText(this, "Please Select an Item 🤨", Toast.LENGTH_SHORT).show();
+            return;
         }
         String money = moneyinput.getText().toString();
         if(money.isEmpty()){
@@ -105,10 +106,8 @@ public class menupage extends AppCompatActivity {
                 Toast.makeText(this, "😢 Insufficient money.Add Tk "+shortMoney, Toast.LENGTH_SHORT).show();
             }
         }
-
-       db.getReference().child("Payment").child(time).child("Option").setValue(option);
-         db.getReference().child("Payment").child(time).child("Money").setValue(money);
-            db.getReference().child("Payment").child(time).child("Payment Status").setValue(paymentstatus);
-
+        db.getReference().child("Payment").child(time).child("Option").setValue(option);
+        db.getReference().child("Payment").child(time).child("Money").setValue(money);
+        db.getReference().child("Payment").child(time).child("Payment Status").setValue(paymentstatus);
     }
 }
