@@ -106,8 +106,9 @@ public class menupage extends AppCompatActivity {
                 Toast.makeText(this, "😢 Insufficient money.Add Tk "+shortMoney, Toast.LENGTH_SHORT).show();
             }
         }
-        db.getReference().child("Payment").child(time).child("Option").setValue(option);
-        db.getReference().child("Payment").child(time).child("Money").setValue(money);
-        db.getReference().child("Payment").child(time).child("Payment Status").setValue(paymentstatus);
+        db.getReference().child("Payment").child("Option").setValue(option);
+        db.getReference().child("Payment").child("Money").setValue(money);
+        db.getReference().child("Payment").child("Payment Status").setValue(paymentstatus);
+
     }
 }
