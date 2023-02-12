@@ -11,7 +11,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choose Your Option!"
+        android:text="Choose Your Option! "
         android:textColor="@color/black"
         android:textSize="26sp"
         android:textStyle="bold|italic"

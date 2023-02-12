@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import com.example.iot.databinding.ActivityMenupageBinding;
 import com.google.firebase.database.FirebaseDatabase;
+
 public class menupage extends AppCompatActivity {
     FirebaseDatabase db;
     private CheckBox kitkat,chips,juice;
@@ -41,19 +42,12 @@ public class menupage extends AppCompatActivity {
         time=java.text.DateFormat.getDateTimeInstance().format(java.util.Calendar.getInstance().getTime());
         if(kitkat.isChecked()){
             option = "Kitkat";
-            //disable other checkboxes
-            chips.setEnabled(false);
-            juice.setEnabled(false);
         }
         else if(chips.isChecked()){
             option = "Chips";
-            kitkat.setEnabled(false);
-            juice.setEnabled(false);
         }
         else if(juice.isChecked()){
             option = "Juice";
-            kitkat.setEnabled(false);
-            chips.setEnabled(false);
         }
         if(!kitkat.isChecked() && !chips.isChecked() && !juice.isChecked()){
             Toast.makeText(this, "Please Select an Item 🤨", Toast.LENGTH_SHORT).show();
@@ -109,6 +103,10 @@ public class menupage extends AppCompatActivity {
         db.getReference().child("Payment").child("Option").setValue(option);
         db.getReference().child("Payment").child("Money").setValue(money);
         db.getReference().child("Payment").child("Payment Status").setValue(paymentstatus);
+        //i want to store data into "purchase" node
+        db.getReference().child("Purchase").child(time).child("Option").setValue(option);
+        db.getReference().child("Purchase").child(time).child("Money").setValue(money);
+        db.getReference().child("Purchase").child(time).child("Payment Status").setValue(paymentstatus);
 
     }
 }
