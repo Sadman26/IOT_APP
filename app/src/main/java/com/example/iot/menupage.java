@@ -38,6 +38,16 @@ public class menupage extends AppCompatActivity {
             }
         });
     }
+    public void fireupload(String option,int money,boolean paymentstatus){
+        db.getReference().child("Payment").child("Option").setValue(option);
+        db.getReference().child("Payment").child("Money").setValue(money);
+        db.getReference().child("Payment").child("Payment Status").setValue(paymentstatus);
+    }
+    public void storeupload(String option,int money,boolean paymentstatus){
+        db.getReference().child("Purchase").child(time).child("Option").setValue(option);
+        db.getReference().child("Purchase").child(time).child("Money").setValue(money);
+        db.getReference().child("Purchase").child(time).child("Payment Status").setValue(paymentstatus);
+    }
     public void SaveData(){
         time=java.text.DateFormat.getDateTimeInstance().format(java.util.Calendar.getInstance().getTime());
         if(kitkat.isChecked()){
@@ -67,6 +77,8 @@ public class menupage extends AppCompatActivity {
                 Toast.makeText(this, "😎 Payment Successful", Toast.LENGTH_SHORT).show();
                 moneyinput.setText("");
                 kitkat.setEnabled(true);
+               fireupload(option,moneyint,paymentstatus);
+               storeupload(option,moneyint,paymentstatus);
             }
             else{
                 shortMoney = chipsprice - moneyint;
@@ -80,6 +92,8 @@ public class menupage extends AppCompatActivity {
                 Toast.makeText(this, "😎 Payment Successful", Toast.LENGTH_SHORT).show();
                 moneyinput.setText("");
                 chips.setEnabled(true);
+                fireupload(option,moneyint,paymentstatus);
+                storeupload(option,moneyint,paymentstatus);
             }
             else{
                 shortMoney = chipsprice - moneyint;
@@ -93,6 +107,8 @@ public class menupage extends AppCompatActivity {
                 Toast.makeText(this, "😎 Payment Successful", Toast.LENGTH_SHORT).show();
                 moneyinput.setText("");
                 juice.setEnabled(true);
+                fireupload(option,moneyint,paymentstatus);
+                storeupload(option,moneyint,paymentstatus);
             }
             else{
                 shortMoney = chipsprice - moneyint;
@@ -100,13 +116,6 @@ public class menupage extends AppCompatActivity {
                 Toast.makeText(this, "😢 Insufficient money.Add Tk "+shortMoney, Toast.LENGTH_SHORT).show();
             }
         }
-        db.getReference().child("Payment").child("Option").setValue(option);
-        db.getReference().child("Payment").child("Money").setValue(money);
-        db.getReference().child("Payment").child("Payment Status").setValue(paymentstatus);
-        //i want to store data into "purchase" node
-        db.getReference().child("Purchase").child(time).child("Option").setValue(option);
-        db.getReference().child("Purchase").child(time).child("Money").setValue(money);
-        db.getReference().child("Purchase").child(time).child("Payment Status").setValue(paymentstatus);
 
     }
 }
