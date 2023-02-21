@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import com.example.iot.databinding.ActivityMenupageBinding;
 import com.google.firebase.database.FirebaseDatabase;
-
 public class menupage extends AppCompatActivity {
     FirebaseDatabase db;
     private CheckBox kitkat,chips,juice;
