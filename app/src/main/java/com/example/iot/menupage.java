@@ -38,12 +38,12 @@ public class menupage extends AppCompatActivity {
             }
         });
     }
-    public void fireupload(String option,int money,boolean paymentstatus){
+    public void fireupload(String option,String money,boolean paymentstatus){
         db.getReference().child("Payment").child("Option").setValue(option);
         db.getReference().child("Payment").child("Money").setValue(money);
         db.getReference().child("Payment").child("Payment Status").setValue(paymentstatus);
     }
-    public void storeupload(String option,int money,boolean paymentstatus){
+    public void storeupload(String option,String money,boolean paymentstatus){
         db.getReference().child("Purchase").child(time).child("Option").setValue(option);
         db.getReference().child("Purchase").child(time).child("Money").setValue(money);
         db.getReference().child("Purchase").child(time).child("Payment Status").setValue(paymentstatus);
@@ -77,8 +77,8 @@ public class menupage extends AppCompatActivity {
                 Toast.makeText(this, "😎 Payment Successful", Toast.LENGTH_SHORT).show();
                 moneyinput.setText("");
                 kitkat.setEnabled(true);
-               fireupload(option,moneyint,paymentstatus);
-               storeupload(option,moneyint,paymentstatus);
+               fireupload(option,money,paymentstatus);
+               storeupload(option,money,paymentstatus);
             }
             else{
                 shortMoney = chipsprice - moneyint;
@@ -93,8 +93,8 @@ public class menupage extends AppCompatActivity {
                 Toast.makeText(this, "😎 Payment Successful", Toast.LENGTH_SHORT).show();
                 moneyinput.setText("");
                 chips.setEnabled(true);
-                fireupload(option,moneyint,paymentstatus);
-                storeupload(option,moneyint,paymentstatus);
+                fireupload(option,money,paymentstatus);
+                storeupload(option,money,paymentstatus);
             }
             else{
                 shortMoney = chipsprice - moneyint;
@@ -109,8 +109,8 @@ public class menupage extends AppCompatActivity {
                 Toast.makeText(this, "😎 Payment Successful", Toast.LENGTH_SHORT).show();
                 moneyinput.setText("");
                 juice.setEnabled(true);
-                fireupload(option,moneyint,paymentstatus);
-                storeupload(option,moneyint,paymentstatus);
+                fireupload(option,money,paymentstatus);
+                storeupload(option,money,paymentstatus);
             }
             else{
                 shortMoney = chipsprice - moneyint;
