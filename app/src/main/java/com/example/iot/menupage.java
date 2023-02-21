@@ -84,6 +84,7 @@ public class menupage extends AppCompatActivity {
                 shortMoney = chipsprice - moneyint;
                 paymentstatus = false;
                 Toast.makeText(this, "😢 Insufficient money.Add Tk "+shortMoney, Toast.LENGTH_SHORT).show();
+                shortMoney = 0;
             }
         }
         else if(option.equals("Chips")){
@@ -99,6 +100,7 @@ public class menupage extends AppCompatActivity {
                 shortMoney = chipsprice - moneyint;
                 paymentstatus = false;
                 Toast.makeText(this, "😢 Insufficient money.Add Tk "+shortMoney, Toast.LENGTH_SHORT).show();
+                shortMoney = 0;
             }
         }
         else if(option.equals("Juice")){
@@ -114,6 +116,7 @@ public class menupage extends AppCompatActivity {
                 shortMoney = chipsprice - moneyint;
                 paymentstatus = false;
                 Toast.makeText(this, "😢 Insufficient money.Add Tk "+shortMoney, Toast.LENGTH_SHORT).show();
+                shortMoney = 0;
             }
         }
 
