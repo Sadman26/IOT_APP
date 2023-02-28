@@ -1,5 +1,7 @@
 package com.example.iot;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -10,24 +12,24 @@ import com.example.iot.databinding.ActivityMenupageBinding;
 import com.google.firebase.database.FirebaseDatabase;
 public class menupage extends AppCompatActivity {
     FirebaseDatabase db;
-    private CheckBox kitkat,chips,juice;
+    private CheckBox t1,t2;
     private EditText moneyinput;
     ImageView paybtn;
     String option;
     String time;
     boolean paymentstatus;
     int shortMoney;
-    int kitkatprice = 35;
-    int chipsprice = 10;
-    int juiceprice = 25;
+    int chocoprice = 35;
+    int cakeprice = 10;
+    String stepp = "0";
+    @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menupage);
         db = FirebaseDatabase.getInstance();
-        kitkat = findViewById(R.id.kitkat);
-        chips = findViewById(R.id.chips);
-        juice = findViewById(R.id.juice);
+        t1 = findViewById(R.id.chocobox);
+        t2 = findViewById(R.id.cakebox);
         moneyinput = findViewById(R.id.moneyinput);
         paybtn = findViewById(R.id.paybtn);
         paybtn.setOnClickListener(new View.OnClickListener() {
@@ -38,9 +40,13 @@ public class menupage extends AppCompatActivity {
         });
     }
     public void fireupload(String option,String money,boolean paymentstatus){
+        //db.getReference().child("Payment").child("Step").setValue(stepp);
         db.getReference().child("Payment").child("Option").setValue(option);
         db.getReference().child("Payment").child("Money").setValue(money);
         db.getReference().child("Payment").child("Payment Status").setValue(paymentstatus);
+        int num = 1; // the number to add to the string
+        int value = Integer.parseInt(stepp) + num;
+        stepp = String.valueOf(value);
     }
     public void storeupload(String option,String money,boolean paymentstatus){
         db.getReference().child("Purchase").child(time).child("Option").setValue(option);
@@ -49,16 +55,13 @@ public class menupage extends AppCompatActivity {
     }
     public void SaveData(){
         time=java.text.DateFormat.getDateTimeInstance().format(java.util.Calendar.getInstance().getTime());
-        if(kitkat.isChecked()){
+        if(t1.isChecked()){
             option = "Kitkat";
         }
-        else if(chips.isChecked()){
-            option = "Chips";
+        else if(t2.isChecked()){
+            option = "Cake";
         }
-        else if(juice.isChecked()){
-            option = "Juice";
-        }
-        if(!kitkat.isChecked() && !chips.isChecked() && !juice.isChecked()){
+        if(!t1.isChecked() && !t2.isChecked()){
             Toast.makeText(this, "Please Select an Item 🤨", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -70,49 +73,33 @@ public class menupage extends AppCompatActivity {
         }
         int moneyint = Integer.parseInt(money);
         if(option.equals("Kitkat")){
-            if(moneyint >= kitkatprice){
+            if(moneyint >=chocoprice ){
                 paymentstatus = true;
                 //Toast
                 Toast.makeText(this, "😎 Payment Successful", Toast.LENGTH_SHORT).show();
                 moneyinput.setText("");
-                kitkat.setEnabled(true);
+                t1.setEnabled(true);
                fireupload(option,money,paymentstatus);
                storeupload(option,money,paymentstatus);
             }
             else{
-                shortMoney = chipsprice - moneyint;
+                shortMoney = chocoprice - moneyint;
                 paymentstatus = false;
                 Toast.makeText(this, "😢 Insufficient money.Add Tk "+shortMoney, Toast.LENGTH_SHORT).show();
                 shortMoney = 0;
             }
         }
-        else if(option.equals("Chips")){
-            if(moneyint >= chipsprice){
+        else if(option.equals("Cake")){
+            if(moneyint >= cakeprice){
                 paymentstatus = true;
                 Toast.makeText(this, "😎 Payment Successful", Toast.LENGTH_SHORT).show();
                 moneyinput.setText("");
-                chips.setEnabled(true);
+                 t2.setEnabled(true);
                 fireupload(option,money,paymentstatus);
                 storeupload(option,money,paymentstatus);
             }
             else{
-                shortMoney = chipsprice - moneyint;
-                paymentstatus = false;
-                Toast.makeText(this, "😢 Insufficient money.Add Tk "+shortMoney, Toast.LENGTH_SHORT).show();
-                shortMoney = 0;
-            }
-        }
-        else if(option.equals("Juice")){
-            if(moneyint >= juiceprice){
-                paymentstatus = true;
-                Toast.makeText(this, "😎 Payment Successful", Toast.LENGTH_SHORT).show();
-                moneyinput.setText("");
-                juice.setEnabled(true);
-                fireupload(option,money,paymentstatus);
-                storeupload(option,money,paymentstatus);
-            }
-            else{
-                shortMoney = chipsprice - moneyint;
+                shortMoney = cakeprice - moneyint;
                 paymentstatus = false;
                 Toast.makeText(this, "😢 Insufficient money.Add Tk "+shortMoney, Toast.LENGTH_SHORT).show();
                 shortMoney = 0;
