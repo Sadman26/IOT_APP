@@ -17,7 +17,7 @@ public class menupage extends AppCompatActivity {
     ImageView paybtn;
     String option;
     String time;
-    boolean paymentstatus;
+
     int shortMoney;
     int chocoprice = 35;
     int cakeprice = 10;
@@ -39,19 +39,17 @@ public class menupage extends AppCompatActivity {
             }
         });
     }
-    public void fireupload(String option,String money,boolean paymentstatus){
-        //db.getReference().child("Payment").child("Step").setValue(stepp);
+    public void fireupload(String option,String money){
+        db.getReference().child("Payment").child("Step").setValue(stepp);
         db.getReference().child("Payment").child("Option").setValue(option);
         db.getReference().child("Payment").child("Money").setValue(money);
-        db.getReference().child("Payment").child("Payment Status").setValue(paymentstatus);
         int num = 1; // the number to add to the string
         int value = Integer.parseInt(stepp) + num;
         stepp = String.valueOf(value);
     }
-    public void storeupload(String option,String money,boolean paymentstatus){
+    public void storeupload(String option,String money){
         db.getReference().child("Purchase").child(time).child("Option").setValue(option);
         db.getReference().child("Purchase").child(time).child("Money").setValue(money);
-        db.getReference().child("Purchase").child(time).child("Payment Status").setValue(paymentstatus);
     }
     public void SaveData(){
         time=java.text.DateFormat.getDateTimeInstance().format(java.util.Calendar.getInstance().getTime());
@@ -74,33 +72,29 @@ public class menupage extends AppCompatActivity {
         int moneyint = Integer.parseInt(money);
         if(option.equals("Kitkat")){
             if(moneyint >=chocoprice ){
-                paymentstatus = true;
                 //Toast
                 Toast.makeText(this, "😎 Payment Successful", Toast.LENGTH_SHORT).show();
                 moneyinput.setText("");
                 t1.setEnabled(true);
-               fireupload(option,money,paymentstatus);
-               storeupload(option,money,paymentstatus);
+               fireupload(option,money);
+               storeupload(option,money);
             }
             else{
                 shortMoney = chocoprice - moneyint;
-                paymentstatus = false;
                 Toast.makeText(this, "😢 Insufficient money.Add Tk "+shortMoney, Toast.LENGTH_SHORT).show();
                 shortMoney = 0;
             }
         }
         else if(option.equals("Cake")){
             if(moneyint >= cakeprice){
-                paymentstatus = true;
                 Toast.makeText(this, "😎 Payment Successful", Toast.LENGTH_SHORT).show();
                 moneyinput.setText("");
                  t2.setEnabled(true);
-                fireupload(option,money,paymentstatus);
-                storeupload(option,money,paymentstatus);
+                fireupload(option,money);
+                storeupload(option,money);
             }
             else{
                 shortMoney = cakeprice - moneyint;
-                paymentstatus = false;
                 Toast.makeText(this, "😢 Insufficient money.Add Tk "+shortMoney, Toast.LENGTH_SHORT).show();
                 shortMoney = 0;
             }
