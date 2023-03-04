@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Iot"
         tools:targetApi="31">
         <activity
+            android:name=".admin"
+            android:exported="false" />
+        <activity
             android:name=".menupage"
             android:exported="false" />
         <activity
