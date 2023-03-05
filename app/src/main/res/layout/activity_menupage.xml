@@ -7,7 +7,7 @@
     android:background="#BDE9FD"
     tools:context=".menupage">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/cakeprice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
         app:layout_constraintVertical_bias="0.752"
         app:srcCompat="@drawable/pay_per_click" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/chocolateprice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

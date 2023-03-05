@@ -13,14 +13,14 @@ import com.google.firebase.database.FirebaseDatabase;
 public class menupage extends AppCompatActivity {
     FirebaseDatabase db;
     private CheckBox t1,t2;
+    com.google.android.material.textview.MaterialTextView tx1,tx2;
     private EditText moneyinput;
     ImageView paybtn;
     String option;
     String time;
-
     int shortMoney;
-    int chocoprice = 35;
-    int cakeprice = 10;
+    int chocoprice;
+    int cakeprice;
     String stepp = "0";
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
@@ -30,8 +30,31 @@ public class menupage extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         t1 = findViewById(R.id.chocobox);
         t2 = findViewById(R.id.cakebox);
+        tx1 = findViewById(R.id.chocolateprice);
+        tx2 = findViewById(R.id.cakeprice);
         moneyinput = findViewById(R.id.moneyinput);
         paybtn = findViewById(R.id.paybtn);
+        //get chocoprice and cakeprice from firebase
+        db.getReference().child("Product").child("Chocolate").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                chocoprice = Integer.parseInt(task.getResult().getValue().toString());
+            }
+        });
+        db.getReference().child("Product").child("Cake").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                cakeprice = Integer.parseInt(task.getResult().getValue().toString());
+            }
+        });
+        db.getReference().child("Product").child("Chocolate").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                tx1.setText(task.getResult().getValue().toString()+" Taka");
+            }
+        });
+        db.getReference().child("Product").child("Cake").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                tx2.setText(task.getResult().getValue().toString()+" Taka");
+            }
+        });
         paybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
