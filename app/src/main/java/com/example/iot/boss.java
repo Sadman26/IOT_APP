@@ -3,6 +3,7 @@ package com.example.iot;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -31,14 +32,18 @@ public class boss extends AppCompatActivity {
         b1.setOnClickListener(v -> {
             String chocolate_price = t1.getText().toString();
             database.getReference().child("Product").child("Chocolate").setValue(chocolate_price);
-            Toast.makeText(this, "Updated Price of Chocolate", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Updated Price of Chocolate 🍫👌", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(boss.this, menupage.class);
+            startActivity(intent);
         });
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String cake_price = t2.getText().toString();
                 database.getReference().child("Product").child("Cake").setValue(cake_price);
-                Toast.makeText(boss.this, "Updated Price of Cake", Toast.LENGTH_SHORT).show();
+                Toast.makeText(boss.this, "Updated Price of Cake 👌", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(boss.this, menupage.class);
+                startActivity(intent);
             }
         });
     }
